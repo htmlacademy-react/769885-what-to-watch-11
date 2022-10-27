@@ -1,5 +1,5 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import NotFount from '../../pages/not-fount/not-fount';
 import MainScreen from '../../pages/main/main-screen';
 import SingIn from '../../pages/sing-in/sing-in';
@@ -7,6 +7,7 @@ import MyList from '../../pages/my-list/my-list';
 import MoviePage from '../../pages/movie-page/movie-page';
 import Player from '../../pages/player/player';
 import AddReview from '../../pages/add-review/add-review';
+import PrivateRoute from '../private-route/private-route';
 
 type AppDataFilmsPromoProps = {
   title: string;
@@ -28,7 +29,11 @@ function App({title, genre, year}: AppDataFilmsPromoProps): JSX.Element {
         />
         <Route
           path={AppRoute.MyList}
-          element={<MyList />}
+          element={
+            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <MyList />
+            </PrivateRoute>
+          }
         />
         <Route path={`${AppRoute.Film}/:id`}>
           <Route index element={<MoviePage />}/>

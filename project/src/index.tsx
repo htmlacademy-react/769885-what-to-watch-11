@@ -1,11 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import {films} from './mocks/films';
+import {comments} from './mocks/comments';
+import {Film, Films} from './types/film';
+import {Comments} from './types/comment';
 
-const DataFilmsPromo = {
-  Title: 'The Grand Budapest Hotel',
-  Genre: 'Drama',
-  Year: 2014
+export type DataType = {
+  films: Films;
+  myListFilms: Films;
+  comments: Comments;
+  filmPromo: Film;
+}
+
+const Data: DataType = {
+  films: films,
+  myListFilms: films,
+  comments: comments,
+  filmPromo: films[7]
 } as const;
 
 const root = ReactDOM.createRoot(
@@ -15,9 +27,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App
-      title={DataFilmsPromo.Title}
-      genre={DataFilmsPromo.Genre}
-      year={DataFilmsPromo.Year}
+      films = {Data.films}
+      myListFilms = {Data.myListFilms}
+      comments = {Data.comments}
+      filmPromo = {Data.filmPromo}
     />
   </React.StrictMode>,
 );

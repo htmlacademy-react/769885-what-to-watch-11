@@ -1,18 +1,22 @@
-import CardFilms from '../../components/card-films/card-films';
+import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
+import ListFilms from '../../components/list-films/list-films';
+import {Film, Films} from '../../types/film';
 
 type MainScreenProps = {
-  title: string;
-  genre: string;
-  year: number;
+  filmPromo: Film;
+  films: Films;
 }
 
-function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
+function MainScreen({filmPromo, films}: MainScreenProps): JSX.Element {
   return (
     <>
       <section className="film-card">
+        <Helmet>
+          <title>WTW | Main screen</title>
+        </Helmet>
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={filmPromo.backgroundImage} alt={filmPromo.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -35,14 +39,14 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327"/>
+              <img src={filmPromo.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327"/>
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{title}</h2>
+              <h2 className="film-card__title">{filmPromo.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{year}</span>
+                <span className="film-card__genre">{filmPromo.genre}</span>
+                <span className="film-card__year">{filmPromo.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -57,7 +61,7 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">9</span>
+                  <span className="film-card__count">{films.length}</span>
                 </button>
               </div>
             </div>
@@ -101,28 +105,7 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-            <CardFilms/>
-          </div>
+          <ListFilms films={films}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -130,13 +113,7 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
         </section>
 
         <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo footer />
 
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>

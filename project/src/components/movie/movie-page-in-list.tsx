@@ -21,9 +21,10 @@ function MoviePageInList(): JSX.Element {
 
         <p className="film-card__director"><strong>Director: Wes Anderson</strong></p>
 
-        <p className="film-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and
-          other
-        </strong>
+        <p className="film-card__starring">
+          <strong>
+          Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other
+          </strong>
         </p>
       </div>
     </>

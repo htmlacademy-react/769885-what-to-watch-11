@@ -1,22 +1,28 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {Film} from '../../types/film';
+import VideoPlayer from '../video-player/video-player';
 
 type CardFilmProps = {
   film: Film;
+  isActiveAutoPlay: boolean;
 }
 
-function CardFilms(props: CardFilmProps): JSX.Element {
-  const { film } = props;
+function CardFilms({film, isActiveAutoPlay}: CardFilmProps): JSX.Element {
+
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" id={film.id.toString()}>
       <div className="small-film-card__image">
-        <img
-          src={film.previewImage}
-          alt={film.name}
-          width="280"
-          height="175"
-        />
+        {
+          isActiveAutoPlay ?
+            <VideoPlayer film={film} muted autoPlay/> :
+            <img
+              src={film.previewImage}
+              alt={film.name}
+              width="280"
+              height="175"
+            />
+        }
       </div>
       <h3 className="small-film-card__title">
         <Link

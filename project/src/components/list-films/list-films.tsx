@@ -1,5 +1,6 @@
+import {useState, BaseSyntheticEvent} from 'react';
 import CardFilms from '../card-films/card-films';
-import {Films} from '../../types/film';
+import {Films, Film} from '../../types/film';
 
 type ListFilmsProps = {
   films: Films;
@@ -7,9 +8,25 @@ type ListFilmsProps = {
 
 function ListFilms(props: ListFilmsProps): JSX.Element {
   const {films} = props;
+  const [activeFilmId, setActiveFilmId] = useState<string | null>(null);
+
+  const handleMouseOver = (evt: BaseSyntheticEvent) => {
+    const target = evt.target as Element;
+    const parentEl = target.parentElement as Element;
+    /* eslint-disable-next-line no-console */
+    console.log(parentEl.classList.contains('small-film-card'));
+    /* eslint-disable-next-line no-console */
+    console.log(parentEl);
+
+    if (parentEl.classList.contains('small-film-card')) {
+      setActiveFilmId(parentEl.id);
+    } else {
+      setActiveFilmId(null);
+    }
+  };
   return (
-    <div className="catalog__films-list">
-      {films.map((f) => <CardFilms film={f} key={f.id}/>)}
+    <div className="catalog__films-list" onMouseOver={handleMouseOver} onMouseOut={() => setActiveFilmId(null)}>
+      {films.map((f: Film) => <CardFilms film={f} key={f.id} isActiveAutoPlay={f.id.toString() === activeFilmId}/>)}
     </div>
   );
 }

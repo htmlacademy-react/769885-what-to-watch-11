@@ -15,7 +15,7 @@ function CardFilms({film, isActiveAutoPlay}: CardFilmProps): JSX.Element {
       <div className="small-film-card__image">
         {
           isActiveAutoPlay ?
-            <VideoPlayer film={film} muted autoPlay/> :
+            <VideoPlayer film={film} isMuted isAutoPlay/> :
             <img
               src={film.previewImage}
               alt={film.name}

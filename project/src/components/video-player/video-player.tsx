@@ -3,15 +3,14 @@ import {Film} from '../../types/film';
 
 type VideoPlayerPropsType = {
   film: Film;
-  muted: boolean;
-  autoPlay: boolean;
+  isMuted: boolean;
+  isAutoPlay: boolean;
 }
 
-function VideoPlayer ({film, muted, autoPlay}: VideoPlayerPropsType): JSX.Element {
+function VideoPlayer ({film, isMuted, isAutoPlay}: VideoPlayerPropsType): JSX.Element {
   const [, setIsLoading] = useState(true);
-  const [isStateAutoPlay] = useState(autoPlay);
+  const [isStateAutoPlay] = useState(isAutoPlay);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  // console.log('>> isLoading', isLoading);
 
   useEffect(() => {
     let isVideoPlayerMounted = true;
@@ -45,8 +44,8 @@ function VideoPlayer ({film, muted, autoPlay}: VideoPlayerPropsType): JSX.Elemen
     <video
       src={film.previewVideoLink}
       poster={film.posterImage}
-      muted={muted}
-      autoPlay={autoPlay}
+      muted={isMuted}
+      autoPlay={isAutoPlay}
     />
   );
 }

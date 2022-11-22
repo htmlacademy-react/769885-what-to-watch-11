@@ -13,10 +13,6 @@ function ListFilms(props: ListFilmsProps): JSX.Element {
   const handleMouseOver = (evt: BaseSyntheticEvent) => {
     const target = evt.target as Element;
     const parentEl = target.parentElement as Element;
-    /* eslint-disable-next-line no-console */
-    console.log(parentEl.classList.contains('small-film-card'));
-    /* eslint-disable-next-line no-console */
-    console.log(parentEl);
 
     if (parentEl.classList.contains('small-film-card')) {
       setActiveFilmId(parentEl.id);

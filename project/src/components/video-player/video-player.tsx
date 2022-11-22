@@ -11,9 +11,9 @@ function VideoPlayer ({film, isMuted, isAutoPlay}: VideoPlayerPropsType): JSX.El
   const [, setIsLoading] = useState(true);
   const [isStateAutoPlay] = useState(isAutoPlay);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-
   useEffect(() => {
     let isVideoPlayerMounted = true;
+    const intervalPreview = 1000;
 
     if (videoRef.current === null) {
       return;
@@ -30,7 +30,7 @@ function VideoPlayer ({film, isMuted, isAutoPlay}: VideoPlayerPropsType): JSX.El
         if (videoRef.current !== null) {
           videoRef.current.play();
         }
-      }, 1000);
+      }, intervalPreview);
       return;
     }
     videoRef.current.pause();

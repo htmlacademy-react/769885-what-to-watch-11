@@ -6,6 +6,7 @@ import NotFount from '../not-fount/not-fount';
 import {Film, Films} from '../../types/film';
 import {AppRoute} from '../../const';
 import ListFilms from '../../components/list-films/list-films';
+import MovieTabs from '../../components/movie/movie-tabs';
 
 type MoviePagePropsType = {
   films: Films;
@@ -84,40 +85,8 @@ function MoviePage(props: MoviePagePropsType): JSX.Element {
               />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+            <MovieTabs film={film}/>
 
-              <div className="film-rating">
-                <div className="film-rating__score">{film.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">240 ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{film.description}</p>
-
-                <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-
-                <p className="film-card__starring">
-                  <strong>Starring: {film.starring}
-                  </strong>
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>

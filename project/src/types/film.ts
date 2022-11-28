@@ -19,4 +19,3 @@ export type Film = {
 }
 
 export type Films = Film[];
-

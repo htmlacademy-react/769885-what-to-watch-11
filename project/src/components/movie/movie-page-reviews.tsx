@@ -1,5 +1,5 @@
 import {Comments} from '../../types/comment';
-import GetMovieComment from './movie-comments';
+import GetMovieComment from './get-movie-comment';
 
 type MovieReviewsPropsType = {
   comments: Comments;

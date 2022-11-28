@@ -9,7 +9,6 @@ type CardFilmProps = {
 }
 
 function CardFilms({film, isActiveAutoPlay}: CardFilmProps): JSX.Element {
-
   return (
     <article className="small-film-card catalog__films-card" id={film.id.toString()}>
       <div className="small-film-card__image">

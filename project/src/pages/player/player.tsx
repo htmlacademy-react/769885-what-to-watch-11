@@ -1,15 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import {Films} from '../../types/film';
-// import {useParams} from 'react-router-dom';
 
 type PlayerPropsType = {
   films: Films;
 }
 
 function Player({films}:PlayerPropsType): JSX.Element {
-  // const params = useParams();
-  // const currentFilmPlayer = films.find((f:Film) => f.id.toString() === params.id);
-
   return (
     <div className="player">
       <Helmet>

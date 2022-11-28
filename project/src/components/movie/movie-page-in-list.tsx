@@ -5,20 +5,39 @@ type MovieInListPropsType = {
 }
 
 function MoviePageInList({film}:MovieInListPropsType): JSX.Element {
+  const bad = {
+    from: 0,
+    to: 3
+  };
+  const mediocre = {
+    from: 3,
+    to: 5
+  };
+  const good = {
+    from: 5,
+    to: 8
+  };
+  const veryGood = {
+    from: 8,
+    to: 10
+  };
+  const awesome = {
+    to: 10
+  };
   const definedRating = (rating: number) => {
-    if (rating >= 0 && rating < 3) {
+    if (rating >= bad.from && rating < bad.to) {
       return 'Bad';
     }
-    if (rating >= 3 && rating < 5) {
+    if (rating >= mediocre.from && rating < mediocre.to) {
       return 'Mediocre';
     }
-    if (rating >= 5 && rating < 8) {
+    if (rating >= good.from && rating < good.to) {
       return 'Good';
     }
-    if (rating >= 8 && rating < 10) {
+    if (rating >= veryGood.from && rating < veryGood.to) {
       return 'Very good';
     }
-    if (rating === 10) {
+    if (rating === awesome.to) {
       return 'Awesome';
     }
     return 'NaN';

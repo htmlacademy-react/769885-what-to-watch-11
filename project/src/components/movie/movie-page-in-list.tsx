@@ -1,30 +1,66 @@
-function MoviePageInList(): JSX.Element {
+import {Film} from '../../types/film';
+
+type MovieInListPropsType = {
+  film: Film;
+}
+
+function MoviePageInList({film}:MovieInListPropsType): JSX.Element {
+  const bad = {
+    from: 0,
+    to: 3
+  };
+  const mediocre = {
+    from: 3,
+    to: 5
+  };
+  const good = {
+    from: 5,
+    to: 8
+  };
+  const veryGood = {
+    from: 8,
+    to: 10
+  };
+  const awesome = {
+    to: 10
+  };
+  const definedRating = (rating: number) => {
+    if (rating >= bad.from && rating < bad.to) {
+      return 'Bad';
+    }
+    if (rating >= mediocre.from && rating < mediocre.to) {
+      return 'Mediocre';
+    }
+    if (rating >= good.from && rating < good.to) {
+      return 'Good';
+    }
+    if (rating >= veryGood.from && rating < veryGood.to) {
+      return 'Very good';
+    }
+    if (rating === awesome.to) {
+      return 'Awesome';
+    }
+    return 'NaN';
+  };
   return (
     <>
       <div className="film-rating">
-        <div className="film-rating__score">8,9</div>
+        <div className="film-rating__score">{film.rating}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">Very good</span>
-          <span className="film-rating__count">240 ratings</span>
+          <span className="film-rating__level">{definedRating(film.rating)}</span>
+          <span className="film-rating__count">{film.scoresCount} ratings</span>
         </p>
       </div>
 
       <div className="film-card__text">
-        <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave
-          H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustaves friend and protege.
-        </p>
+        <p>{film.description}</p>
 
-        <p>Gustave prides himself on providing first-class service to the hotels guests, including satisfying the
-          sexual needs of the many elderly women who stay there. When one of Gustaves lovers dies mysteriously, Gustave
-          finds himself the recipient of a priceless painting and the chief suspect in her murder.
+        <p className="film-card__director">
+          <strong>Director: {film.director}</strong>
         </p>
-
-        <p className="film-card__director"><strong>Director: Wes Anderson</strong></p>
 
         <p className="film-card__starring">
-          <strong>
-          Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other
-          </strong>
+          <strong>Starring: {film.starring.join(', ')} and other</strong>
         </p>
       </div>
     </>

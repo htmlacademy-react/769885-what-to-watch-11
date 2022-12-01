@@ -18,3 +18,5 @@ export enum tabsDescriptionsFilms {
   Details = 2,
   Reviews = 3
 }
+
+export const DEFAULT_GENRE = 'All genres';

@@ -1,11 +1,12 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeGenre, findFilms} from './action';
+import {changeGenre, findFilms, findNextFilms, findResetFilms} from './action';
 import {films} from '../mocks/films';
-import {DEFAULT_GENRE} from '../const';
+import {DEFAULT_GENRE, TOTAL_FILMS_SHOW_MORE} from '../const';
 
 const initialState = {
   genre: DEFAULT_GENRE,
-  films: films
+  films: films,
+  filmsTotalView: TOTAL_FILMS_SHOW_MORE
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -15,6 +16,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(findFilms , (state, action) => {
       state.films = action.payload;
+    })
+    .addCase(findNextFilms, (state) => {
+      state.filmsTotalView += TOTAL_FILMS_SHOW_MORE;
+    })
+    .addCase(findResetFilms, (state) => {
+      state.filmsTotalView = TOTAL_FILMS_SHOW_MORE;
     });
 });
 

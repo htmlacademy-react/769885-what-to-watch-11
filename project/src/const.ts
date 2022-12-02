@@ -20,3 +20,5 @@ export enum tabsDescriptionsFilms {
 }
 
 export const DEFAULT_GENRE = 'All genres';
+
+export const TOTAL_FILMS_SHOW_MORE = 8;

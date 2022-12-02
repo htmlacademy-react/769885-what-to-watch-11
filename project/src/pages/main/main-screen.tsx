@@ -1,10 +1,14 @@
+import {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useLocation} from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import ListFilms from '../../components/list-films/list-films';
 import {Film, Films} from '../../types/film';
 import ListGenres from '../../components/list-genres/list-genres';
 import {DEFAULT_GENRE} from '../../const';
-import {useAppSelector} from '../../hooks';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
+import {findNextFilms, findResetFilms} from '../../store/action';
 
 type MainScreenProps = {
   filmPromo: Film;
@@ -12,6 +16,12 @@ type MainScreenProps = {
 }
 
 function MainScreen({filmPromo, films}: MainScreenProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    dispatch(findResetFilms());
+  },[location, dispatch]);
   const getListGenres = (fs: Films): string[] => {
     const gen = new Set(fs.map((f) => f.genre));
     return [DEFAULT_GENRE as string, ...gen];
@@ -23,7 +33,9 @@ function MainScreen({filmPromo, films}: MainScreenProps): JSX.Element {
       return fs.filter((f) => f.genre === g);
     }
   };
+  const updateListFindFilms = useAppSelector((state) => state.filmsTotalView);
   const findSelectedFilms = useAppSelector((state) => getFilterFilms(state.films, state.genre));
+  const findSelectedFilmsUpdate = useAppSelector((state) => getFilterFilms(state.films, state.genre)).slice(0, updateListFindFilms);
   const genres = getListGenres(films);
 
   return (
@@ -91,11 +103,9 @@ function MainScreen({filmPromo, films}: MainScreenProps): JSX.Element {
 
           <ListGenres genres={genres} />
 
-          <ListFilms films={findSelectedFilms}/>
+          <ListFilms films={findSelectedFilmsUpdate} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          { findSelectedFilms.length > findSelectedFilmsUpdate.length ? <ShowMoreButton onClick={() => dispatch(findNextFilms())} /> : null}
         </section>
 
         <footer className="page-footer">

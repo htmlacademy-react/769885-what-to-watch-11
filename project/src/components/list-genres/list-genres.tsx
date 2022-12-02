@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import { MouseEvent } from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeGenre} from '../../store/action';
+import {changeGenre, findResetFilms} from '../../store/action';
 
 type ListGenrePropsType = {
   genres: string[];
@@ -16,7 +16,8 @@ function ListGenres({genres}: ListGenrePropsType): JSX.Element {
         <li key={genre} className={`catalog__genres-item ${genre === activeGenre ? 'catalog__genres-item--active' : ''}`}>
           <Link to="#" className="catalog__genres-link" onClick={(evt: MouseEvent) => {
             evt.preventDefault();
-            dispatch(changeGenre(genre));}}
+            dispatch(changeGenre(genre));
+            dispatch(findResetFilms());}}
           >{genre}
           </Link>
         </li>

@@ -12,3 +12,8 @@ export const findFilms = createAction('films/findFilms', (films: Films) => ({
 export const findNextFilms = createAction('films/findNextFilms');
 
 export const findResetFilms = createAction('films/findResetFilms');
+
+export const errorMessage = createAction<string | null>('app/errorMessage');
+
+export const isLoadingFilms = createAction<boolean>('films/isLoadingFilms');
+

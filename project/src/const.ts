@@ -19,6 +19,12 @@ export enum tabsDescriptionsFilms {
   Reviews = 3
 }
 
+export enum APIRoute {
+  Films = '/films'
+}
+
 export const DEFAULT_GENRE = 'All genres';
 
 export const TOTAL_FILMS_SHOW_MORE = 8;
+
+export const TIMEOUT_DELETE_ERROR_MESSAGE = 3000;

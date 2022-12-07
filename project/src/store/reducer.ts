@@ -1,12 +1,22 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeGenre, findFilms, findNextFilms, findResetFilms} from './action';
-import {films} from '../mocks/films';
+import {Films} from '../types/film';
+import {changeGenre, errorMessage, findFilms, findNextFilms, findResetFilms, isLoadingFilms} from './action';
 import {DEFAULT_GENRE, TOTAL_FILMS_SHOW_MORE} from '../const';
 
-const initialState = {
+type InitialState = {
+  genre: string;
+  films: Films;
+  filmsTotalView: number;
+  isLoadedFilms: boolean;
+  errorMessage: string | null;
+}
+
+const initialState: InitialState = {
   genre: DEFAULT_GENRE,
-  films: films,
-  filmsTotalView: TOTAL_FILMS_SHOW_MORE
+  films: [],
+  filmsTotalView: TOTAL_FILMS_SHOW_MORE,
+  isLoadedFilms: false,
+  errorMessage: null
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -22,6 +32,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(findResetFilms, (state) => {
       state.filmsTotalView = TOTAL_FILMS_SHOW_MORE;
+    })
+    .addCase(errorMessage, (state, action) => {
+      state.errorMessage = action.payload;
+    })
+    .addCase(isLoadingFilms, (state, action) => {
+      state.isLoadedFilms = action.payload;
     });
 });
 

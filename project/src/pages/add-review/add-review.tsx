@@ -6,6 +6,7 @@ import {Film, Films} from '../../types/film';
 import Logo from '../../components/logo/logo';
 import FormSendComments from '../../components/form-send-comments/form-send-comments';
 import NotFount from '../not-fount/not-fount';
+import UserBlockAuth from '../../components/user-block-auth/user-block-auth';
 
 type AddReviewPropsType = {
   films: Films;
@@ -43,16 +44,7 @@ function AddReview({films}: AddReviewPropsType) {
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserBlockAuth />
         </header>
 
         <div className="film-card__poster film-card__poster--small">

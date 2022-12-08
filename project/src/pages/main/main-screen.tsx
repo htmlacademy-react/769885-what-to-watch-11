@@ -9,6 +9,7 @@ import ListGenres from '../../components/list-genres/list-genres';
 import {DEFAULT_GENRE} from '../../const';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import {findNextFilms, findResetFilms} from '../../store/action';
+import UserBlockAuth from '../../components/user-block-auth/user-block-auth';
 
 type MainScreenProps = {
   filmPromo: Film;
@@ -53,16 +54,7 @@ function MainScreen({filmPromo, films}: MainScreenProps): JSX.Element {
         <header className="page-header film-card__head">
           <Logo/>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserBlockAuth />
         </header>
 
         <div className="film-card__wrap">

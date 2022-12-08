@@ -1,7 +1,15 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {Films} from '../types/film';
-import {changeGenre, errorMessage, findFilms, findNextFilms, findResetFilms, isLoadingFilms} from './action';
-import {DEFAULT_GENRE, TOTAL_FILMS_SHOW_MORE} from '../const';
+import {
+  changeGenre,
+  errorMessage,
+  findFilms,
+  findNextFilms,
+  findResetFilms,
+  isLoadingFilms,
+  requireAuthorization
+} from './action';
+import {AuthorizationStatus, DEFAULT_GENRE, TOTAL_FILMS_SHOW_MORE} from '../const';
 
 type InitialState = {
   genre: string;
@@ -9,6 +17,7 @@ type InitialState = {
   filmsTotalView: number;
   isLoadedFilms: boolean;
   errorMessage: string | null;
+  authorizationStatus: AuthorizationStatus;
 }
 
 const initialState: InitialState = {
@@ -16,7 +25,8 @@ const initialState: InitialState = {
   films: [],
   filmsTotalView: TOTAL_FILMS_SHOW_MORE,
   isLoadedFilms: false,
-  errorMessage: null
+  errorMessage: null,
+  authorizationStatus: AuthorizationStatus.Unknown
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -38,6 +48,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(isLoadingFilms, (state, action) => {
       state.isLoadedFilms = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 

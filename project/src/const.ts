@@ -20,7 +20,9 @@ export enum tabsDescriptionsFilms {
 }
 
 export enum APIRoute {
-  Films = '/films'
+  Films = '/films',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export const DEFAULT_GENRE = 'All genres';

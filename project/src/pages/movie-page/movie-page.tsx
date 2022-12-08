@@ -7,6 +7,7 @@ import {Film, Films} from '../../types/film';
 import {AppRoute} from '../../const';
 import ListFilms from '../../components/list-films/list-films';
 import MovieTabs from '../../components/movie/movie-tabs';
+import UserBlockAuth from '../../components/user-block-auth/user-block-auth';
 
 type MoviePagePropsType = {
   films: Films;
@@ -37,16 +38,7 @@ function MoviePage(props: MoviePagePropsType): JSX.Element {
           <header className="page-header film-card__head">
             <Logo />
 
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
+            <UserBlockAuth />
           </header>
 
           <div className="film-card__wrap">

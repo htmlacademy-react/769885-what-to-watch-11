@@ -35,10 +35,10 @@ function App(): JSX.Element {
             </PrivateRoute>
           }
           />
-          <Route path={`${AppRoute.Film}/:id`} element={ <MoviePage films={films} /> }/>
+          <Route path={`${AppRoute.Film}/:id`} element={ <MoviePage /> }/>
           <Route path={`${AppRoute.Film}/:id/${AppRoute.AddReview}`} element={
             <PrivateRoute authorizationStatus={isAuthorization}>
-              <AddReview films={films} />
+              <AddReview />
             </PrivateRoute>
           }
           />

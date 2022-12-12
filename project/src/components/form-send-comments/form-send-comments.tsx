@@ -1,17 +1,15 @@
-import {useState, ChangeEvent} from 'react';
-import {Film} from '../../types/film';
+import {useState, ChangeEvent, BaseSyntheticEvent} from 'react';
+import {CreateComment} from '../../types/comment';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useNavigate} from 'react-router-dom';
+import {addCommentFilm} from '../../store/api-actions';
+import {APIRoute} from '../../const';
 
-type FormSendCommentsPropsType = {
-  film: Film;
-}
-
-type FormDataFilm = {
-  rating: number;
-  comment: string;
-}
-
-function FormSendComments({film}: FormSendCommentsPropsType): JSX.Element {
-  const [formData, setFormData] = useState<FormDataFilm>({
+function FormSendComments(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const film = useAppSelector((state) => state.film);
+  const [formData, setFormData] = useState<CreateComment>({
     rating: 0,
     comment: ''
   });
@@ -23,6 +21,14 @@ function FormSendComments({film}: FormSendCommentsPropsType): JSX.Element {
       setFormData({...formData, comment: evt.target.value});
     }
   };
+
+  const handleFormSubmit = (evt: BaseSyntheticEvent) => {
+    evt.preventDefault();
+    const [comment, rating] = [formData.comment, formData.rating];
+    dispatch(addCommentFilm([film.id, {comment, rating}]));
+    navigate(`${APIRoute.Films}/${film.id.toString()}`);
+  };
+
   return (
     <div className="add-review">
       <form action="#" className="add-review__form">
@@ -66,7 +72,13 @@ function FormSendComments({film}: FormSendCommentsPropsType): JSX.Element {
           >
           </textarea>
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">Post</button>
+            <button
+              onClick={handleFormSubmit}
+              disabled={formData.rating === 0 || !(formData.comment.length > 50 && formData.comment.length < 400)}
+              className="add-review__btn" type="submit"
+            >
+              Post
+            </button>
           </div>
 
         </div>

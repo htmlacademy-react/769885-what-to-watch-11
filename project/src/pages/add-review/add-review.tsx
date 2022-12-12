@@ -1,20 +1,14 @@
 import { Helmet } from 'react-helmet-async';
-import { useParams} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import {Film, Films} from '../../types/film';
 import Logo from '../../components/logo/logo';
 import FormSendComments from '../../components/form-send-comments/form-send-comments';
 import NotFount from '../not-fount/not-fount';
 import UserBlockAuth from '../../components/user-block-auth/user-block-auth';
+import {useAppSelector} from '../../hooks';
 
-type AddReviewPropsType = {
-  films: Films;
-}
-
-function AddReview({films}: AddReviewPropsType) {
-  const params = useParams();
-  const film = films.find((elem: Film) => elem.id.toString() === params.id);
+function AddReview() {
+  const film = useAppSelector((state) => state.film);
   if (film === undefined) {
     return <NotFount />;
   }
@@ -54,7 +48,7 @@ function AddReview({films}: AddReviewPropsType) {
         </div>
       </div>
 
-      <FormSendComments film={film} />
+      <FormSendComments />
 
     </section>
   );

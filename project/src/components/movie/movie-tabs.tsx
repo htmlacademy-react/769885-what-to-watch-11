@@ -1,3 +1,4 @@
+import {useAppSelector} from '../../hooks';
 import {Film} from '../../types/film';
 import {tabsDescriptionsFilms} from '../../const';
 import {useState} from 'react';
@@ -5,13 +6,13 @@ import MoviePageInList from './movie-page-in-list';
 import MoviePageDetails from './movie-page-details';
 import MoviePageReviews from './movie-page-reviews';
 import {Link} from 'react-router-dom';
-import {comments} from '../../mocks/comments';
 
 type MovieTabsPropsType = {
   film: Film;
 }
 
 function MovieTabs({film}: MovieTabsPropsType): JSX.Element {
+  const comments = useAppSelector((state) => state.currentFilmComments);
   const [activeTab, setActiveTab] = useState<number>(tabsDescriptionsFilms.Overview);
   const definedActiveTab = () => {
     switch (activeTab) {

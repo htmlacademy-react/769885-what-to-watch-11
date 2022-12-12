@@ -60,7 +60,7 @@ function MoviePageInList({film}:MovieInListPropsType): JSX.Element {
         </p>
 
         <p className="film-card__starring">
-          <strong>Starring: {film.starring.join(', ')} and other</strong>
+          <strong>Starring: {film.starring} and other</strong>
         </p>
       </div>
     </>

@@ -1,32 +1,47 @@
-import { Helmet } from 'react-helmet-async';
-import {useParams} from 'react-router-dom';
-import {Link} from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
+import {Link, useParams} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import NotFount from '../not-fount/not-fount';
-import {Film, Films} from '../../types/film';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import ListFilms from '../../components/list-films/list-films';
 import MovieTabs from '../../components/movie/movie-tabs';
 import UserBlockAuth from '../../components/user-block-auth/user-block-auth';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useEffect} from 'react';
+import {getCommentsFilm, getFilm, getSimilarFilms} from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
 
-type MoviePagePropsType = {
-  films: Films;
-}
-
-function MoviePage(props: MoviePagePropsType): JSX.Element {
-  const {films} = props;
+function MoviePage(): JSX.Element {
   const params = useParams();
-  const similarFilms = films.slice(0, 4);
-  const film: Film | undefined = films.find((f ) => f.id.toString() === params.id);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (params.id ) {
+      dispatch(getFilm(params.id));
+      dispatch(getCommentsFilm(params.id));
+      dispatch(getSimilarFilms(params.id));
+    }
+  }, [params.id, dispatch]);
+  const similarFilms = useAppSelector((state) => state.similarFilms);
+  const film = useAppSelector((state) => state.film);
+  const films = useAppSelector((state) => state.films);
+  const isAuthorization = useAppSelector((state) => state.authorizationStatus);
+  const isLoadedFilm = useAppSelector((state) => state.isLoadedFilm);
+
   if (film === undefined) {
     return <NotFount/>;
+  }
+
+  if (isLoadedFilm) {
+    return (
+      <LoadingScreen />
+    );
   }
 
   return (
     <>
       <section className="film-card film-card--full">
         <Helmet>
-          <title>WTW | Films pages</title>
+          <title>WTW | Film pages</title>
         </Helmet>
         <div className="film-card__hero">
           <div className="film-card__bg">
@@ -63,7 +78,7 @@ function MoviePage(props: MoviePagePropsType): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">{films.length}</span>
                 </button>
-                <Link to={`${AppRoute.AddReview}`} className="btn film-card__button">Add review</Link>
+                {isAuthorization === AuthorizationStatus.Auth ? <Link to={`${AppRoute.AddReview}`} className="btn film-card__button">Add review</Link> : null}
               </div>
             </div>
           </div>
